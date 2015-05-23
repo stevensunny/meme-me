@@ -13,6 +13,10 @@ class SentMemesTableViewController: UIViewController, UITableViewDelegate, UITab
     // MARK: Variables
     @IBOutlet weak var sentMemesTable: UITableView!
     
+    @IBOutlet var editButton: UIBarButtonItem!
+    @IBOutlet var addButton: UIBarButtonItem!
+    var cancelButton: UIBarButtonItem!
+    
     var memes: [Meme]!
     
     // MARK: - View Lifecycle
@@ -23,9 +27,17 @@ class SentMemesTableViewController: UIViewController, UITableViewDelegate, UITab
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         memes = appDelegate.memes
         
-        // Reload sent memes' table if memes are not empty
+        cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: "cancelAction")
+        
         if memes.count > 0 {
+            // Reload sent memes' table if memes are not empty
             sentMemesTable.reloadData()
+            
+            // Enable edit button if meme exists
+            editButton.enabled = true
+        } else {
+            // Disable edit button if no memes
+            editButton.enabled = false
         }
     }
     
@@ -38,6 +50,27 @@ class SentMemesTableViewController: UIViewController, UITableViewDelegate, UITab
     @IBAction func showMemeEditor(sender: UIBarButtonItem) {
         let memeEditor = storyboard!.instantiateViewControllerWithIdentifier("MemeEditorViewController") as! MemeEditorViewController
         presentViewController(memeEditor, animated: true, completion: nil)
+    }
+    
+    @IBAction func editAction(sender: UIBarButtonItem) {
+        sentMemesTable.setEditing(true, animated: true)
+        updateBarButtonState()
+    }
+    
+    func cancelAction() {
+        sentMemesTable.setEditing(false, animated: true)
+        updateBarButtonState()
+    }
+    
+    func updateBarButtonState() {
+        // If in editing mode, show delete and cancel button
+        if sentMemesTable.editing {
+            navigationItem.leftBarButtonItem = cancelButton
+            navigationItem.rightBarButtonItem = nil
+        } else {
+            navigationItem.rightBarButtonItem = addButton
+            navigationItem.leftBarButtonItem = editButton
+        }
     }
     
     // MARK: - Delegate Methods
@@ -60,16 +93,37 @@ class SentMemesTableViewController: UIViewController, UITableViewDelegate, UITab
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        println("Selected \(indexPath.row)")
         // Instantiate MemeDetailViewController
         let memeDetailView = storyboard!.instantiateViewControllerWithIdentifier("MemeDetailViewController") as! MemeDetailViewController
         
         // Pass selected meme
         memeDetailView.selectedMeme = memes[indexPath.row]
-        println(memes[indexPath.row].memeImage)
         
         // Show meme detail view
         navigationController!.pushViewController(memeDetailView, animated: true)
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+            // Remove the deleted meme from memes array
+            memes.removeAtIndex(indexPath.row)
+            
+            // Update shared memes
+            (UIApplication.sharedApplication().delegate as! AppDelegate).memes = memes
+            
+            // Delete the row
+            sentMemesTable.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+        }
+        
+    }
+    
+    func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if memes.count == 0 {
+            // End editing session if no more meme
+            cancelAction()
+        }
     }
 
 }

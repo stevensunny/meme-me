@@ -160,6 +160,11 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Sent Memes" id="d4d-co-rn5">
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="aIf-BX-sll">
+                            <connections>
+                                <action selector="editAction:" destination="4d7-Vx-Ugy" id="u4s-r1-jxo"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Deb-Ge-qOB">
                             <connections>
                                 <action selector="showMemeEditor:" destination="4d7-Vx-Ugy" id="sX7-iB-Mhu"/>
@@ -167,6 +172,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addButton" destination="Deb-Ge-qOB" id="7Lu-2p-kHj"/>
+                        <outlet property="editButton" destination="aIf-BX-sll" id="qQQ-ls-jbt"/>
                         <outlet property="sentMemesTable" destination="Lxe-7k-xxA" id="cE1-w0-Wx9"/>
                     </connections>
                 </viewController>
