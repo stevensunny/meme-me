@@ -313,7 +313,7 @@
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="qN6-EW-35c" secondAttribute="trailing" constant="-16" id="6Yi-QN-5YU"/>
                             <constraint firstItem="qN6-EW-35c" firstAttribute="top" secondItem="A7r-mV-prd" secondAttribute="topMargin" constant="20" id="GIV-2D-pem"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="qN6-EW-35c" secondAttribute="bottom" constant="20" id="XIj-0w-OiA"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="qN6-EW-35c" secondAttribute="bottom" id="XIj-0w-OiA"/>
                             <constraint firstItem="qN6-EW-35c" firstAttribute="leading" secondItem="A7r-mV-prd" secondAttribute="leadingMargin" constant="-16" id="bV2-wv-ijl"/>
                         </constraints>
                         <variation key="default">
