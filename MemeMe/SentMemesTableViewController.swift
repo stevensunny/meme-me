@@ -52,10 +52,24 @@ class SentMemesTableViewController: UIViewController, UITableViewDelegate, UITab
         
         // Set the name and image for row
         cell.titleLabel?.text = meme.topText + " " + meme.bottomText
-        cell.memeImage?.image = meme.memeImage
+        cell.memeImageView?.image = meme.memeImage
         
         return cell
         
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        println("Selected \(indexPath.row)")
+        // Instantiate MemeDetailViewController
+        let memeDetailView = storyboard!.instantiateViewControllerWithIdentifier("MemeDetailViewController") as! MemeDetailViewController
+        
+        // Pass selected meme
+        memeDetailView.selectedMeme = memes[indexPath.row]
+        println(memes[indexPath.row].memeImage)
+        
+        // Show meme detail view
+        navigationController!.pushViewController(memeDetailView, animated: true)
     }
 
 }

@@ -118,7 +118,7 @@
                                             </variation>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="memeImage" destination="Lpj-r4-GPK" id="p2Z-ve-smU"/>
+                                            <outlet property="memeImageView" destination="Lpj-r4-GPK" id="3xb-dP-WKK"/>
                                             <outlet property="titleLabel" destination="McV-K7-HHD" id="MOq-fM-wep"/>
                                         </connections>
                                     </tableViewCell>
@@ -168,7 +168,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="sentMemesTable" destination="Lxe-7k-xxA" id="cE1-w0-Wx9"/>
-                        <segue destination="Nrs-Dr-ccS" kind="show" identifier="ShowMemeDetailSegue" id="fJn-TW-IaO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XE2-Dk-SHw" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -289,17 +288,16 @@
                     </navigationItem>
                     <connections>
                         <outlet property="sentMemesCollection" destination="qVy-Mz-Ss7" id="LBo-fD-Qp0"/>
-                        <segue destination="Nrs-Dr-ccS" kind="show" identifier="ShowMemeDetailSegue" id="zkf-9z-gzp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KaU-cv-WJL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2199" y="483"/>
         </scene>
-        <!--View Controller-->
+        <!--Meme Detail View Controller-->
         <scene sceneID="SFY-hX-C4D">
             <objects>
-                <viewController id="Nrs-Dr-ccS" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MemeDetailViewController" id="Nrs-Dr-ccS" customClass="MemeDetailViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sQn-cy-waB"/>
                         <viewControllerLayoutGuide type="bottom" id="j0b-zf-43G"/>
@@ -309,27 +307,45 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qN6-EW-35c">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="20" width="400" height="600"/>
-                                </variation>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="qN6-EW-35c" secondAttribute="trailing" constant="-16" id="6Yi-QN-5YU"/>
+                            <constraint firstItem="qN6-EW-35c" firstAttribute="top" secondItem="A7r-mV-prd" secondAttribute="topMargin" constant="20" id="GIV-2D-pem"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="qN6-EW-35c" secondAttribute="bottom" constant="20" id="XIj-0w-OiA"/>
+                            <constraint firstItem="qN6-EW-35c" firstAttribute="leading" secondItem="A7r-mV-prd" secondAttribute="leadingMargin" constant="-16" id="bV2-wv-ijl"/>
+                        </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="qN6-EW-35c"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="6Yi-QN-5YU"/>
+                                <exclude reference="GIV-2D-pem"/>
+                                <exclude reference="XIj-0w-OiA"/>
+                                <exclude reference="bV2-wv-ijl"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
                                 <include reference="qN6-EW-35c"/>
                             </mask>
+                            <mask key="constraints">
+                                <include reference="6Yi-QN-5YU"/>
+                                <include reference="GIV-2D-pem"/>
+                                <include reference="XIj-0w-OiA"/>
+                                <include reference="bV2-wv-ijl"/>
+                            </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="memeImageView" destination="qN6-EW-35c" id="fFe-9M-VNz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i6v-P4-BGq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3004.5" y="52"/>
+            <point key="canvasLocation" x="2877" y="483"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="0hW-gL-mqB">
@@ -556,14 +572,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SQh-MX-UcO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3004.5" y="-632"/>
+            <point key="canvasLocation" x="2877" y="-424"/>
         </scene>
     </scenes>
     <resources>
         <image name="collection" width="30" height="30"/>
         <image name="table" width="30" height="30"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="fJn-TW-IaO"/>
-    </inferredMetricsTieBreakers>
 </document>
