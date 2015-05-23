@@ -28,7 +28,7 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
         NSStrokeWidthAttributeName : -4.0
     ]
     
-    // MARK: View Lifecycle
+    // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -209,6 +209,8 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
         let shareView = UIActivityViewController(activityItems: [memeImage], applicationActivities: nil)
         shareView.completionWithItemsHandler = {
             (activity, success, items, error) in
+            
+                // TODO: if success
                 self.saveMeme( memeImage )
                 self.dismissViewControllerAnimated(true, completion: nil)
         }
@@ -217,7 +219,7 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
     }
     
     
-    // MARK: UIImagePickerController Delegate Methods
+    // MARK: - Delegate Methods
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         
@@ -232,8 +234,6 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
         }
         
     }
-    
-    // MARK: UITextField Delegate Methods
     
     func textFieldDidBeginEditing(textField: UITextField) {
         // Empty textfield

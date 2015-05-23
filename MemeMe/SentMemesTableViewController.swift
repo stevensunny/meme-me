@@ -15,7 +15,7 @@ class SentMemesTableViewController: UIViewController, UITableViewDelegate, UITab
     
     var memes: [Meme]!
     
-    // MARK: View Lifecycle
+    // MARK: - View Lifecycle
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -40,7 +40,7 @@ class SentMemesTableViewController: UIViewController, UITableViewDelegate, UITab
         presentViewController(memeEditor, animated: true, completion: nil)
     }
     
-    // MARK: Table View Delegate Method
+    // MARK: - Delegate Methods
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return memes.count
     }

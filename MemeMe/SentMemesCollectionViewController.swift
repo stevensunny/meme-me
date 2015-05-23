@@ -8,35 +8,49 @@
 
 import UIKit
 
-class SentMemesCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class SentMemesCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    @IBOutlet var sentMemesCollection: UICollectionView!
+    // MARK: Variables
+    @IBOutlet weak var sentMemesCollection: UICollectionView!
+    
     var memes: [Meme]!
     
+    // MARK: - View Lifecycle
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        // Retrieve memes object from App Delegate
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         memes = appDelegate.memes
         
-        // Reload sent memes' table if memes are not empty
-        if memes.count > 0 {
-            sentMemesCollection.reloadData()
-        }
+        // Reload collection
+        sentMemesCollection.reloadData()
     }
     
+    // MARK: IB Actions
+    /**
+    Show Meme Editor Screen
+    
+    :param: sender
+    */
+    @IBAction func showMemeEditor(sender: UIBarButtonItem) {
+        let memeEditor = self.storyboard!.instantiateViewControllerWithIdentifier("MemeEditorViewController") as! MemeEditorViewController
+        self.presentViewController(memeEditor, animated: true, completion: nil)
+    }
+    
+    // MARK: - Collection View Delegate & Data Source
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return memes.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        // Dequeue collection cell
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("SentMemesCollectionViewCell", forIndexPath: indexPath) as! SentMemesCollectionViewCell
-    }
-    
-    // MARK: IB Actions
-    @IBAction func showMemeEditor(sender: UIBarButtonItem) {
-        let memeEditor = self.storyboard!.instantiateViewControllerWithIdentifier("MemeEditorViewController") as! MemeEditorViewController
-        self.presentViewController(memeEditor, animated: true, completion: nil)
+        let meme = memes[indexPath.row]
+        
+        // Set the cell image with meme image
+        cell.memeImage?.image = meme.memeImage
+        return cell
     }
     
 }
