@@ -69,6 +69,9 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="195" y="39" width="117" height="21"/>
+                                                    </variation>
                                                 </label>
                                             </subviews>
                                             <constraints>
@@ -88,15 +91,15 @@
                                                     <exclude reference="McV-K7-HHD"/>
                                                 </mask>
                                                 <mask key="constraints">
+                                                    <exclude reference="UAI-yR-YGK"/>
+                                                    <exclude reference="fIE-Bn-GtR"/>
+                                                    <exclude reference="g3X-6N-DJr"/>
+                                                    <exclude reference="twe-Gd-wLv"/>
                                                     <exclude reference="7I8-2T-rGE"/>
                                                     <exclude reference="NuF-x1-PbO"/>
                                                     <exclude reference="hjd-Gy-ALc"/>
                                                     <exclude reference="hwb-3g-jXk"/>
                                                     <exclude reference="oKx-Es-et0"/>
-                                                    <exclude reference="UAI-yR-YGK"/>
-                                                    <exclude reference="fIE-Bn-GtR"/>
-                                                    <exclude reference="g3X-6N-DJr"/>
-                                                    <exclude reference="twe-Gd-wLv"/>
                                                 </mask>
                                             </variation>
                                             <variation key="widthClass=compact">
@@ -105,15 +108,15 @@
                                                     <include reference="McV-K7-HHD"/>
                                                 </mask>
                                                 <mask key="constraints">
+                                                    <include reference="UAI-yR-YGK"/>
+                                                    <include reference="fIE-Bn-GtR"/>
+                                                    <include reference="g3X-6N-DJr"/>
+                                                    <include reference="twe-Gd-wLv"/>
                                                     <include reference="7I8-2T-rGE"/>
                                                     <include reference="NuF-x1-PbO"/>
                                                     <exclude reference="hjd-Gy-ALc"/>
                                                     <include reference="hwb-3g-jXk"/>
                                                     <exclude reference="oKx-Es-et0"/>
-                                                    <include reference="UAI-yR-YGK"/>
-                                                    <include reference="fIE-Bn-GtR"/>
-                                                    <include reference="g3X-6N-DJr"/>
-                                                    <include reference="twe-Gd-wLv"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -310,6 +313,7 @@
                         <viewControllerLayoutGuide type="bottom" id="j0b-zf-43G"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="A7r-mV-prd">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qN6-EW-35c">

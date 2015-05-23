@@ -58,6 +58,7 @@ class SentMemesCollectionViewController: UIViewController, UICollectionViewDeleg
         let memeDetailView = storyboard!.instantiateViewControllerWithIdentifier("MemeDetailViewController") as! MemeDetailViewController
         // Pass the selected meme information
         memeDetailView.selectedMeme = memes[indexPath.row]
+        memeDetailView.selectedIndex = indexPath.row
         // Display meme detail view
         navigationController!.pushViewController(memeDetailView, animated: true)
     }

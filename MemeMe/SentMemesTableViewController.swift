@@ -29,10 +29,9 @@ class SentMemesTableViewController: UIViewController, UITableViewDelegate, UITab
         
         cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: "cancelAction")
         
+        sentMemesTable.reloadData()
+        
         if memes.count > 0 {
-            // Reload sent memes' table if memes are not empty
-            sentMemesTable.reloadData()
-            
             // Enable edit button if meme exists
             editButton.enabled = true
         } else {
@@ -98,6 +97,7 @@ class SentMemesTableViewController: UIViewController, UITableViewDelegate, UITab
         
         // Pass selected meme
         memeDetailView.selectedMeme = memes[indexPath.row]
+        memeDetailView.selectedIndex = indexPath.row
         
         // Show meme detail view
         navigationController!.pushViewController(memeDetailView, animated: true)
