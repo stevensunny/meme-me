@@ -18,7 +18,12 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
     @IBOutlet weak var toolbar: UIToolbar!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     
-    @IBOutlet weak var shareButton: UIBarButtonItem!
+    var shareButton: UIBarButtonItem!
+    var cancelButton: UIBarButtonItem!
+    
+    /// If in editing state, this variables will be passed from Meme Detail View
+    var editMeme: Meme!
+    var memeIndex: Int!
     
     /// Default text attributes for MemeMe
     let memeTextAttributes = [
@@ -35,10 +40,26 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
         // Set text field delegates
         topText.delegate = self
         bottomText.delegate = self
+        
+        // Set navigation item
+        shareButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action, target: self, action: "showShareMenu")
+        cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: "returnToList")
+        navigationItem.rightBarButtonItem = cancelButton
+        navigationItem.leftBarButtonItem = shareButton
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        // If in edit state, prepopulate the text fields and image view
+        if let editMeme = self.editMeme {
+            topText.text = editMeme.topText
+            bottomText.text = editMeme.bottomText
+            memeImageView.image = editMeme.originalImage
+        } else {
+            // Disable share button if not in edit mode
+            shareButton.enabled = false;
+        }
         
         // Disable camera button if camera is not available
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
@@ -49,8 +70,8 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
         topText.textAlignment = .Center
         bottomText.textAlignment = .Center
         
-        // Disable share button by default
-        shareButton.enabled = false;
+        // Hide tab bar 
+        tabBarController?.tabBar.hidden = true
         
         // Subscribe to keyboard event
         subscribeToKeyboardNotifications()
@@ -166,8 +187,46 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
         
         var meme = Meme(topText: topText.text, bottomText: bottomText.text, originalImage: memeImageView.image!, memeImage: memeImage)
         
-        // Add it to the memes array in the Application Delegate
-        (UIApplication.sharedApplication().delegate as! AppDelegate).memes.append(meme)
+        if let memeIndex = self.memeIndex {
+            // If in editing mode, replace the app delegate's memes array
+            (UIApplication.sharedApplication().delegate as! AppDelegate).memes[memeIndex] = meme            
+        } else {
+            // If not in editing mode, add to app delegate's memes array
+            (UIApplication.sharedApplication().delegate as! AppDelegate).memes.append(meme)
+        }
+        
+    }
+    
+    /**
+    Return to meme list view
+    */
+    func returnToList() {
+        navigationController?.popToRootViewControllerAnimated(true)
+    }
+    
+    /**
+    Show share menu
+    
+    :param: sender Share icon bar button item
+    */
+    func showShareMenu() {
+        
+        let memeImage = generateMeme()
+        
+        let shareView = UIActivityViewController(activityItems: [memeImage], applicationActivities: nil)
+        shareView.completionWithItemsHandler = {
+            (activity, success, items, error) in
+            
+            if success {
+                // Save the meme
+                self.saveMeme( memeImage )
+                // Navigate to sent memes view
+                self.navigationController!.popToRootViewControllerAnimated(true)
+                
+            }
+        }
+        presentViewController(shareView, animated: true, completion: nil)
+        
     }
     
     // MARK: IB Actions
@@ -189,35 +248,6 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
     @IBAction func showCamera(sender: UIBarButtonItem) {
         displayImagePicker(source: UIImagePickerControllerSourceType.Camera)
     }
-    
-    /**
-    Return to meme list view
-    */
-    @IBAction func returnToList() {
-        dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    /**
-    Show share menu
-    
-    :param: sender Share icon bar button item
-    */
-    @IBAction func showShareMenu(sender: UIBarButtonItem) {
-        
-        let memeImage = generateMeme()
-        
-        let shareView = UIActivityViewController(activityItems: [memeImage], applicationActivities: nil)
-        shareView.completionWithItemsHandler = {
-            (activity, success, items, error) in
-            
-                // TODO: if success
-                self.saveMeme( memeImage )
-                self.dismissViewControllerAnimated(true, completion: nil)
-        }
-        presentViewController(shareView, animated: true, completion: nil)
-        
-    }
-    
     
     // MARK: - Delegate Methods
     

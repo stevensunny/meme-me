@@ -23,6 +23,8 @@ class SentMemesTableViewController: UIViewController, UITableViewDelegate, UITab
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        tabBarController?.tabBar.hidden = false
+        
         // Retrieve memes data from App Delegate
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         memes = appDelegate.memes
@@ -48,7 +50,7 @@ class SentMemesTableViewController: UIViewController, UITableViewDelegate, UITab
     */
     @IBAction func showMemeEditor(sender: UIBarButtonItem) {
         let memeEditor = storyboard!.instantiateViewControllerWithIdentifier("MemeEditorViewController") as! MemeEditorViewController
-        presentViewController(memeEditor, animated: true, completion: nil)
+        navigationController!.pushViewController(memeEditor, animated: true)
     }
     
     @IBAction func editAction(sender: UIBarButtonItem) {

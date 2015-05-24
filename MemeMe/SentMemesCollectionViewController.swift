@@ -19,6 +19,8 @@ class SentMemesCollectionViewController: UIViewController, UICollectionViewDeleg
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        tabBarController?.tabBar.hidden = false
+        
         // Retrieve memes object from App Delegate
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         memes = appDelegate.memes
@@ -35,7 +37,7 @@ class SentMemesCollectionViewController: UIViewController, UICollectionViewDeleg
     */
     @IBAction func showMemeEditor(sender: UIBarButtonItem) {
         let memeEditor = self.storyboard!.instantiateViewControllerWithIdentifier("MemeEditorViewController") as! MemeEditorViewController
-        self.presentViewController(memeEditor, animated: true, completion: nil)
+        navigationController!.pushViewController(memeEditor, animated: true)
     }
     
     // MARK: - Collection View Delegate & Data Source
