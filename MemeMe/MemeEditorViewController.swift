@@ -131,7 +131,7 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
     */
     func keyboardWillShow(notification: NSNotification) {
         if ( bottomText.isFirstResponder() ) {
-            view.frame.origin.y -= getKeyboardHeight(notification)
+            view.frame.origin.y = -getKeyboardHeight(notification)
         }
     }
     
@@ -142,7 +142,7 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
     */
     func keyboardWillHide(notification: NSNotification) {
         if ( bottomText.isFirstResponder() ) {
-            view.frame.origin.y += getKeyboardHeight(notification)
+            view.frame.origin.y = 0
         }
     }
     
