@@ -267,7 +267,9 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
     
     func textFieldDidBeginEditing(textField: UITextField) {
         // Empty textfield
-        textField.text = ""
+        if textField.text != "TOP" && textField.text != "BOTTOM" {
+            textField.text = ""
+        }
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
